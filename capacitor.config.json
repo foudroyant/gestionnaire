@@ -1,0 +1,6 @@
+{
+	"appId": "phane.app.gestion",
+	"appName": "phane gestion",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

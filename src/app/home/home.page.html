@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="end">
+      <ion-button color="dark" (click)="newPage=!newPage">
+        <ion-icon *ngIf="newPage==false" slot="icon-only" ios="add" md="add-circle-outline"></ion-icon>
+        <ion-icon *ngIf="newPage==true" slot="icon-only" name="remove-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Phane Gestion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!--<ion-icon name="remove-circle-outline"></ion-icon>-->
+<ion-content>
+  <div class="newPage" *ngIf="newPage==true">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Label de la page</ion-label>
+        <ion-input [(ngModel)]="label"></ion-input>
+      </ion-item>
+
+      <ion-list class="categorie" *ngFor="let categorie of categories; let i=index">
+          <ion-item>
+            <ion-label position="floating">Categorie {{i+1}} </ion-label>
+            <ion-input [(ngModel)]="categorie.label"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Nature</ion-label>
+            <ion-select [(ngModel)]="categorie.valeur" value="">
+              <ion-select-option value="ajout">Ajout</ion-select-option>
+              <ion-select-option value="depense">Dépense</ion-select-option>
+            </ion-select>
+          </ion-item>
+      </ion-list>
+
+    </ion-list>
+    <ion-button size="small" color="dark" (click)="addCategorie()">Ajouter categorie</ion-button>
+    <ion-button size="small" color="danger" (click)="creer()">Créer</ion-button>
+  </div>
+
+  <ion-text color="primary">
+    
+  </ion-text>
+  <ion-card *ngFor="let page of pages">
+    <ion-card-header>
+      <ion-card-subtitle>{{showCategories(page.categories)}}</ion-card-subtitle>
+      <ion-card-title>{{page.label}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button size="small" color="dark" (click)="goTo(page)">Ouvrir</ion-button>
+      <ion-button size="small" color="danger" (click)="del(page)">Supprimer</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

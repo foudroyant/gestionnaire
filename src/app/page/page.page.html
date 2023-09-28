@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="dark" (click)="showLine=!showLine">
+        <ion-icon *ngIf="showLine==false" slot="icon-only" ios="add" md="add-circle-outline"></ion-icon>
+        <ion-icon *ngIf="showLine==true" slot="icon-only" name="remove-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{page.label}}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="danger">
+    <ion-searchbar></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngIf="showLine">
+    <ion-card-header>
+      <ion-card-title>Nouvelle ligne</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating">Description</ion-label>
+          <ion-input [(ngModel)]="newLine.description"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Montant</ion-label>
+          <ion-input [(ngModel)]="newLine.montant"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Categorie</ion-label>
+          <ion-select [(ngModel)]="newLine.categorie" value="">
+            <ion-select-option *ngFor="let categorie of page.categories"
+              value="{{categorie.label}}">{{categorie.label}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <ion-button size="small" color="dark" (click)="add()">Ajouter</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let line of lines">
+      <ion-item-options side="start">
+        <ion-item-option color="danger" (click)="del(line)">Supprimer</ion-item-option>
+      </ion-item-options>
+      <ion-item>
+        <ion-icon *ngIf="line.categorie.valeur=='ajout'" slot="start" name="add"></ion-icon>
+        <ion-icon *ngIf="line.categorie.valeur=='depense'" slot="start" name="remove"></ion-icon>
+        <ion-label>
+          <h2>{{line.montant}}</h2>
+          <h3>{{line.categorie.label}}</h3>
+          <p>{{line.description}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
